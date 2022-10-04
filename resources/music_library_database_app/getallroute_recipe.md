@@ -11,7 +11,18 @@ GET /albums
 none
 
 # Expected response (200 OK)
-list of albums
+Doolittle
+Surfer Rosa
+Waterloo
+Super Trouper
+Bossanova
+Lover
+Folklore
+I Put a Spell on You
+Baltimore'
+Here Comes the Sun
+Fodder on My Wings
+Ring Ring
 
 ## 2. Design the Response
 
@@ -28,7 +39,18 @@ _Replace the below with your own design. Think of all the different possible res
 <!-- Response when the post is found: 200 OK -->
 
 <html>
-album1, album2, album3
+Doolittle
+Surfer Rosa
+Waterloo
+Super Trouper
+Bossanova
+Lover
+Folklore
+I Put a Spell on You
+Baltimore'
+Here Comes the Sun
+Fodder on My Wings
+Ring Ring
 </html>
 ```
 
@@ -44,7 +66,19 @@ GET /albums
 # Expected response:
 
 Response for 200 OK
-list of albums
+
+Doolittle
+Surfer Rosa
+Waterloo
+Super Trouper
+Bossanova
+Lover
+Folklore
+I Put a Spell on You
+Baltimore'
+Here Comes the Sun
+Fodder on My Wings
+Ring Ring
 ```
 
 
@@ -61,13 +95,13 @@ describe Application do
 
   let(:app) { Application.new }
 
-  context "GET /albums" do
-    it 'returns 200 OK' do
-      # Assuming the post with id 1 exists.
+context 'GET /albums' do
+    it 'should return the list of albums' do
       response = get('/albums')
 
+      expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
       expect(response.status).to eq(200)
-      # expect(response.body).to eq(expected_response)
+      expect(response.body).to eq(expected_response)
     end
   end
 end
