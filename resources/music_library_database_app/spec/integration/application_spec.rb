@@ -10,18 +10,28 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  context 'GET /albums/:id' do
+    it 'should return info about album 2' do
+      response = get('/albums/2')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Surfer Rosa</h1>')
+      expect(response.body).to include('1988')
+    end
+  end
+
   context 'GET /albums' do
     it 'should return the list of albums' do
       response = get('/albums')
 
-      expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
       expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+      expect(response.body).to include('Title: Surfer Rosa')
+      expect(response.body).to include('Release year: 1988')
     end
   end
 
   context 'POST/albums' do
-    it 'should create a new album' do
+    xit 'should create a new album' do
       response = post(
         '/albums',
         title: 'OK Computer',
