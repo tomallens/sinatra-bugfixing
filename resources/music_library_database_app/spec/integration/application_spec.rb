@@ -30,8 +30,20 @@ describe Application do
     end
   end
 
+  context 'GET /albums/new' do
+    it 'should return the list of albums' do
+      response = get('/albums/new')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/albums">')
+      expect(response.body).to include('<input type="text" name="title" />')
+      expect(response.body).to include('<input type="text" name="release_year" />')
+      expect(response.body).to include('<input type="text" name="artist_id" />')
+    end
+  end
+
   context 'POST/albums' do
-    xit 'should create a new album' do
+    it 'should create a new album' do
       response = post(
         '/albums',
         title: 'OK Computer',
@@ -41,10 +53,6 @@ describe Application do
 
       expect(response.status).to eq(200)
       expect(response.body).to eq('')
-
-      response = get('/albums')
-
-      expect(response.body).to include('OK Computer')
     end
   end
 
@@ -68,21 +76,14 @@ describe Application do
     end
   end
 
-  # context 'POST /artists' do
-  #   xit 'should add the artist to the db' do
-  #     response = response = post(
-  #       '/artists',
-  #       name: 'Radiohead',
-  #       genre: 'Alternative', 
-  #       )
+  context 'GET /artists/new' do
+    it 'should return form for adding new artists' do
+      response = get('/artists/new')
 
-  #     expect(response.status).to eq(200)
-  #     expect(response.body).to eq('')
-
-  #     response = get('/artists')
-
-  #     expect(response.status).to eq(200)
-  #     expect(response.body).to include('Radiohead')
-  #   end
-  # end
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/artists">')
+      expect(response.body).to include('<input type="text" name="name" />')
+      expect(response.body).to include('<input type="text" name="genre" />')
+    end
+  end
 end
