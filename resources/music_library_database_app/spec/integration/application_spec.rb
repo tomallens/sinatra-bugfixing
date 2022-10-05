@@ -25,8 +25,8 @@ describe Application do
       response = get('/albums')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include('Title: Surfer Rosa')
-      expect(response.body).to include('Release year: 1988')
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a>')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a>')
     end
   end
 
@@ -48,31 +48,41 @@ describe Application do
     end
   end
 
+  context 'GET /artists/:id' do
+    it 'should return html about artist 2' do
+      response = get('/artists/2')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>ABBA</h1>')
+      expect(response.body).to include('Pop')
+    end
+  end
+
   context 'GET /artists' do
-    it 'should return the list of artists' do
-      response = get('/artists')
-
-      expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos'
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
-    end
-  end
-
-  context 'POST /artists' do
-    it 'should add the artist to the db' do
-      response = response = post(
-        '/artists',
-        name: 'Radiohead',
-        genre: 'Alternative', 
-        )
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq('')
-
+    it 'should return the list of artist links' do
       response = get('/artists')
 
       expect(response.status).to eq(200)
-      expect(response.body).to include('Radiohead')
+      expect(response.body).to include('<a href="/artists/1">Pixies</a><br>')
+      expect(response.body).to include('<a href="/artists/2">ABBA</a><br>')
     end
   end
+
+  # context 'POST /artists' do
+  #   xit 'should add the artist to the db' do
+  #     response = response = post(
+  #       '/artists',
+  #       name: 'Radiohead',
+  #       genre: 'Alternative', 
+  #       )
+
+  #     expect(response.status).to eq(200)
+  #     expect(response.body).to eq('')
+
+  #     response = get('/artists')
+
+  #     expect(response.status).to eq(200)
+  #     expect(response.body).to include('Radiohead')
+  #   end
+  # end
 end
